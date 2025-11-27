@@ -92,6 +92,70 @@ fetch_latest_release() {
     printf "${GREEN}Latest version: ${TAG_NAME}${NC}\n"
 }
 
+# Download checksums file
+download_checksums() {
+    printf "${BLUE}Downloading checksums...${NC}\n"
+
+    CHECKSUMS_FILE="devos-${TAG_NAME}-checksums.txt"
+    CHECKSUMS_URL="https://github.com/${GITHUB_REPO}/releases/download/${TAG_NAME}/${CHECKSUMS_FILE}"
+    TMP_CHECKSUMS=$(mktemp)
+
+    if ! curl -fsSL -o "$TMP_CHECKSUMS" "$CHECKSUMS_URL"; then
+        rm -f "$TMP_CHECKSUMS"
+        printf "${YELLOW}Warning: Could not download checksums file${NC}\n"
+        printf "Skipping checksum verification.\n"
+        SKIP_CHECKSUM=1
+        return 0
+    fi
+
+    CHECKSUMS_PATH="$TMP_CHECKSUMS"
+}
+
+# Verify binary checksum
+verify_checksum() {
+    if [ "$SKIP_CHECKSUM" = "1" ]; then
+        printf "${YELLOW}⚠ Checksum verification skipped${NC}\n"
+        return 0
+    fi
+
+    printf "${BLUE}Verifying checksum...${NC}\n"
+
+    # Extract expected checksum for our binary
+    EXPECTED_CHECKSUM=$(grep "$BINARY_NAME" "$CHECKSUMS_PATH" | awk '{print $1}')
+
+    if [ -z "$EXPECTED_CHECKSUM" ]; then
+        printf "${YELLOW}Warning: Could not find checksum for ${BINARY_NAME}${NC}\n"
+        printf "Skipping checksum verification.\n"
+        rm -f "$CHECKSUMS_PATH"
+        return 0
+    fi
+
+    # Calculate actual checksum
+    if command -v sha256sum >/dev/null 2>&1; then
+        ACTUAL_CHECKSUM=$(sha256sum "$TMP_FILE" | awk '{print $1}')
+    elif command -v shasum >/dev/null 2>&1; then
+        ACTUAL_CHECKSUM=$(shasum -a 256 "$TMP_FILE" | awk '{print $1}')
+    else
+        printf "${YELLOW}Warning: Neither sha256sum nor shasum found${NC}\n"
+        printf "Skipping checksum verification.\n"
+        rm -f "$CHECKSUMS_PATH"
+        return 0
+    fi
+
+    # Compare checksums
+    if [ "$EXPECTED_CHECKSUM" != "$ACTUAL_CHECKSUM" ]; then
+        printf "${RED}Error: Checksum verification failed!${NC}\n" >&2
+        printf "Expected: $EXPECTED_CHECKSUM\n" >&2
+        printf "Got:      $ACTUAL_CHECKSUM\n" >&2
+        printf "\nThe downloaded binary may be corrupted or tampered with.\n" >&2
+        rm -f "$TMP_FILE" "$CHECKSUMS_PATH"
+        exit 1
+    fi
+
+    printf "${GREEN}✓ Checksum verified${NC}\n"
+    rm -f "$CHECKSUMS_PATH"
+}
+
 # Download binary
 download_binary() {
     printf "${BLUE}Downloading devos for ${OS}-${ARCH}...${NC}\n"
@@ -145,7 +209,9 @@ main() {
     detect_arch
     determine_install_location
     fetch_latest_release
+    download_checksums
     download_binary
+    verify_checksum
     install_binary
     verify_installation
 }
