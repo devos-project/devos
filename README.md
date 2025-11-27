@@ -16,14 +16,18 @@ Or download binaries directly from [Releases](https://github.com/devos-project/d
 
 ### First Steps
 
+Check version:
 ```bash
-# Check version
 devos version
+```
 
-# Get help
+Get help:
+```bash
 devos --help
+```
 
-# Check for updates
+Check for updates:
+```bash
 devos version --check
 ```
 
@@ -43,13 +47,15 @@ devos version --check
 
 ## 🔄 Updates
 
-Keep DevOS up to date:
+Keep DevOS up to date.
 
+Check for updates:
 ```bash
-# Check for updates
 devos version --check
+```
 
-# Reinstall latest version
+Reinstall latest version:
+```bash
 curl -fsSL https://raw.githubusercontent.com/devos-project/devos/latest/install.sh | sh
 ```
 
