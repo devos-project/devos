@@ -40,22 +40,27 @@ The script will:
 
 ## Manual Update
 
-1. **Download the latest binary** from [GitHub Releases](https://github.com/devos-project/devos/releases/latest)
+**1. Download the latest binary** from [GitHub Releases](https://github.com/devos-project/devos/releases/latest)
 
-2. **Replace the existing binary:**
-   ```bash
-   # Find your current installation
-   which devos
+**2. Find your current installation:**
+```bash
+which devos
+```
 
-   # Replace it (example for /usr/local/bin)
-   sudo mv devos-linux-amd64 /usr/local/bin/devos
-   chmod +x /usr/local/bin/devos
-   ```
+**3. Replace the binary** (example for /usr/local/bin):
+```bash
+sudo mv devos-linux-amd64 /usr/local/bin/devos
+```
 
-3. **Verify the update:**
-   ```bash
-   devos version
-   ```
+**4. Make it executable:**
+```bash
+chmod +x /usr/local/bin/devos
+```
+
+**5. Verify the update:**
+```bash
+devos version
+```
 
 ## What Gets Updated
 
@@ -95,7 +100,7 @@ If you need to rollback to a previous version:
 
 1. Visit [Releases](https://github.com/devos-project/devos/releases)
 2. Download the version you want
-3. Follow the manual installation steps
+3. Follow the manual installation steps above
 
 ## Automatic Updates
 

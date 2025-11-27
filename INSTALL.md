@@ -31,17 +31,34 @@ Download the binary for your platform from the [latest release](https://github.c
 
 ### 2. Install Binary
 
+**Option A: System-wide installation** (requires sudo)
+
+Make the binary executable:
 ```bash
-# Make the binary executable
 chmod +x devos-*
+```
 
-# Move to a directory in your PATH
+Move to /usr/local/bin:
+```bash
 sudo mv devos-* /usr/local/bin/devos
+```
 
-# Or install to user directory
+**Option B: User installation** (no sudo required)
+
+Create user bin directory:
+```bash
 mkdir -p ~/.local/bin
+```
+
+Move the binary:
+```bash
 mv devos-* ~/.local/bin/devos
-export PATH="$PATH:$HOME/.local/bin"  # Add to ~/.bashrc or ~/.zshrc
+chmod +x ~/.local/bin/devos
+```
+
+Add to your PATH (add this to ~/.bashrc or ~/.zshrc):
+```bash
+export PATH="$PATH:$HOME/.local/bin"
 ```
 
 ### 3. Verify Installation
@@ -57,9 +74,17 @@ DevOS Dev-Tools version v2.17.0
 
 ## Next Steps
 
-- Run `devos --help` to see available commands
-- Check for updates: `devos version --check`
-- See [UPDATE.md](UPDATE.md) for update instructions
+Check available commands:
+```bash
+devos --help
+```
+
+Check for updates:
+```bash
+devos version --check
+```
+
+See [UPDATE.md](UPDATE.md) for update instructions.
 
 ## Troubleshooting
 
@@ -68,9 +93,22 @@ DevOS Dev-Tools version v2.17.0
 - For `~/.local/bin`, add to your shell profile: `export PATH="$PATH:$HOME/.local/bin"`
 
 **Permission denied:**
-- Make sure the binary is executable: `chmod +x /path/to/devos`
-- Or use sudo for system-wide installation: `sudo mv devos /usr/local/bin/`
+
+Make sure the binary is executable:
+```bash
+chmod +x /path/to/devos
+```
+
+Or use sudo for system-wide installation:
+```bash
+sudo mv devos /usr/local/bin/
+```
 
 **macOS security warning:**
-- Right-click the binary and select "Open" to bypass Gatekeeper
-- Or run: `xattr -d com.apple.quarantine /usr/local/bin/devos`
+
+Bypass Gatekeeper using the command line:
+```bash
+xattr -d com.apple.quarantine /usr/local/bin/devos
+```
+
+Or right-click the binary in Finder and select "Open" the first time.

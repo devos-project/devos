@@ -1,64 +1,73 @@
-  # DevOS - AI-Powered Development Orchestration System
+# DevOS - AI-Powered Development Orchestration System
 
-  **DevOS by [Effective Momentum](https://effectivemomentum.com)**
+**DevOS by [Effective Momentum](https://effectivemomentum.com)**
 
-  DevOS is a comprehensive task management and AI orchestration CLI that automates software development workflows.
+DevOS is a comprehensive task management and AI orchestration CLI that automates software development workflows.
 
-  ## 🚀 Quick Start
+## 🚀 Quick Start
 
-  ### Installation
+### Installation
 
-  ```bash
-  curl -fsSL https://devos-project.github.io/install.sh | sh
+```bash
+curl -fsSL https://raw.githubusercontent.com/devos-project/devos/latest/install.sh | sh
+```
 
-  Or download binaries directly from https://github.com/devos-project/devos/releases.
+Or download binaries directly from [Releases](https://github.com/devos-project/devos/releases).
 
-  First Steps
+### First Steps
 
-  # Check version
-  devos version
+Check version:
+```bash
+devos version
+```
 
-  # Get help
-  devos --help
+Get help:
+```bash
+devos --help
+```
 
-  # Check for updates
-  devos version --check
+Check for updates:
+```bash
+devos version --check
+```
 
-  📦 Features
+## 📦 Features
 
-  - Task management with dependency tracking
-  - AI-powered worker orchestration
-  - PR review automation
-  - Cross-platform support (Linux, macOS)
+- **Task Management**: Hierarchical task tracking with dependencies
+- **AI Orchestration**: Coordinate multiple AI workers across teams
+- **PR Automation**: Automated PR reviews and merging workflows
+- **Cross-Platform**: Linux and macOS support (AMD64 & ARM64)
+- **Version Management**: Built-in update checking
 
-  📖 Documentation
+## 📖 Documentation
 
-  - ./INSTALL.md
-  - ./UPDATE.md
-  - https://github.com/devos-project/devos/wiki
+- [Installation Guide](./INSTALL.md)
+- [Update Instructions](./UPDATE.md)
+- [Project Wiki](https://github.com/devos-project/devos/wiki)
 
-  🔄 Updates
+## 🔄 Updates
 
-  Keep devos up to date:
+Keep DevOS up to date.
 
-  # Check for updates
-  devos version --check
+Check for updates:
+```bash
+devos version --check
+```
 
-  # Or re-run install script
-  curl -fsSL https://devos-project.github.io/install.sh | sh
+Reinstall latest version:
+```bash
+curl -fsSL https://raw.githubusercontent.com/devos-project/devos/latest/install.sh | sh
+```
 
-  🐛 Issues & Support
+## 🐛 Issues & Support
 
-  - https://github.com/devos-project/devos/issues
-  - https://github.com/devos-project/devos/discussions
-  - Enterprise Support: contact@effectivemomentum.com
+- [Report Issues](https://github.com/devos-project/devos/issues)
+- [Discussions](https://github.com/devos-project/devos/discussions)
 
-  📄 License
+## 📝 License
 
-  [Your chosen license]
+Copyright © 2024-2025 Effective Momentum
 
-  🏢 About
+---
 
-  DevOS is developed and maintained by https://effectivemomentum.com.
-
-  For enterprise inquiries, custom integrations, and support contracts, please contact us.
+**[Effective Momentum](https://effectivemomentum.com)** - Building the future of AI-powered development
