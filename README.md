@@ -1,73 +1,51 @@
-# DevOS - AI-Powered Development Orchestration System
+# dt (DevOS Dev-Tools)
 
-**DevOS by [Effective Momentum](https://effectivemomentum.com)**
+Developer tools CLI for autonomous software development orchestration.
 
-DevOS is a comprehensive task management and AI orchestration CLI that automates software development workflows.
-
-## 🚀 Quick Start
-
-### Installation
+## Quick Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/devos-project/devos/latest/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/devos-project/dt/latest/install.sh | sh
 ```
 
-Or download binaries directly from [Releases](https://github.com/devos-project/devos/releases).
+Or download binaries directly from [Releases](https://github.com/devos-project/dt/releases).
 
-### First Steps
+## Usage
 
-Check version:
 ```bash
-devos version
+# Check version
+dt version
+
+# Get help
+dt --help
+
+# Check for updates
+dt version --check
 ```
 
-Get help:
-```bash
-devos --help
-```
+## Documentation
+
+- [Installation Guide](INSTALL.md) - Detailed installation instructions
+- [Update Guide](UPDATE.md) - How to update dt
+- [Project Wiki](https://github.com/devos-project/dt/wiki)
+
+## Updating
 
 Check for updates:
 ```bash
-devos version --check
+dt version --check
 ```
 
-## 📦 Features
-
-- **Task Management**: Hierarchical task tracking with dependencies
-- **AI Orchestration**: Coordinate multiple AI workers across teams
-- **PR Automation**: Automated PR reviews and merging workflows
-- **Cross-Platform**: Linux and macOS support (AMD64 & ARM64)
-- **Version Management**: Built-in update checking
-
-## 📖 Documentation
-
-- [Installation Guide](./INSTALL.md)
-- [Update Instructions](./UPDATE.md)
-- [Project Wiki](https://github.com/devos-project/devos/wiki)
-
-## 🔄 Updates
-
-Keep DevOS up to date.
-
-Check for updates:
+Update to latest:
 ```bash
-devos version --check
+curl -fsSL https://raw.githubusercontent.com/devos-project/dt/latest/install.sh | sh
 ```
 
-Reinstall latest version:
-```bash
-curl -fsSL https://raw.githubusercontent.com/devos-project/devos/latest/install.sh | sh
-```
+## Support
 
-## 🐛 Issues & Support
+- [Report Issues](https://github.com/devos-project/dt/issues)
+- [Discussions](https://github.com/devos-project/dt/discussions)
 
-- [Report Issues](https://github.com/devos-project/devos/issues)
-- [Discussions](https://github.com/devos-project/devos/discussions)
+## License
 
-## 📝 License
-
-Copyright © 2024-2025 Effective Momentum
-
----
-
-**[Effective Momentum](https://effectivemomentum.com)** - Building the future of AI-powered development
+MIT License - see [LICENSE](LICENSE) for details.

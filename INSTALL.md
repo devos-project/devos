@@ -1,114 +1,107 @@
-# Installing DevOS
-
-DevOS is distributed as a single binary with no dependencies. Choose your preferred installation method below.
+# Installing dt
 
 ## Quick Install (Recommended)
 
-**Linux and macOS:**
+Run the installation script:
+
 ```bash
-curl -fsSL https://raw.githubusercontent.com/devos-project/devos/latest/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/devos-project/dt/latest/install.sh | sh
 ```
 
-The install script will:
-- Detect your operating system and architecture
-- Download the appropriate binary
-- Install to `/usr/local/bin` (or `~/.local/bin` if not writable)
-- Verify the installation
+The script automatically:
+- Detects your OS and architecture
+- Downloads the correct binary
+- Verifies checksums
+- Installs to `/usr/local/bin` (or `~/.local/bin` if not writable)
 
 ## Manual Installation
 
-### 1. Download Binary
+Download the binary for your platform from the [latest release](https://github.com/devos-project/dt/releases/latest):
 
-Download the binary for your platform from the [latest release](https://github.com/devos-project/devos/releases/latest):
+### Linux
+- AMD64: `dt-linux-amd64`
+- ARM64: `dt-linux-arm64`
 
-**Linux:**
-- AMD64: `devos-linux-amd64`
-- ARM64: `devos-linux-arm64`
+### macOS
+- Intel (AMD64): `dt-darwin-amd64`
+- Apple Silicon (ARM64): `dt-darwin-arm64`
 
-**macOS:**
-- Intel (AMD64): `devos-darwin-amd64`
-- Apple Silicon (ARM64): `devos-darwin-arm64`
+### Steps
 
-### 2. Install Binary
+1. **Download the binary** for your platform
 
-**Option A: System-wide installation** (requires sudo)
-
-Make the binary executable:
+2. **Make it executable**
 ```bash
-chmod +x devos-*
+chmod +x dt-*
 ```
 
-Move to /usr/local/bin:
+3. **Move to a directory in your PATH**
 ```bash
-sudo mv devos-* /usr/local/bin/devos
+# System-wide (requires sudo)
+sudo mv dt-* /usr/local/bin/dt
 ```
 
-**Option B: User installation** (no sudo required)
-
-Create user bin directory:
+Or for user-only installation:
 ```bash
+# Create ~/.local/bin if it doesn't exist
 mkdir -p ~/.local/bin
-```
 
-Move the binary:
-```bash
-mv devos-* ~/.local/bin/devos
-chmod +x ~/.local/bin/devos
-```
+# Move binary
+mv dt-* ~/.local/bin/dt
+chmod +x ~/.local/bin/dt
 
-Add to your PATH (add this to ~/.bashrc or ~/.zshrc):
-```bash
+# Add to PATH (add to ~/.bashrc or ~/.zshrc)
 export PATH="$PATH:$HOME/.local/bin"
 ```
 
-### 3. Verify Installation
+4. **Verify installation**
+```bash
+dt version
+```
+
+## Verifying Checksums
+
+Each release includes a checksums file. To verify your download:
 
 ```bash
-devos version
+# Download checksums file
+curl -LO https://github.com/devos-project/dt/releases/latest/download/dt-v3.0.0-checksums.txt
+
+# Verify (Linux)
+sha256sum -c dt-v3.0.0-checksums.txt --ignore-missing
+
+# Verify (macOS)
+shasum -a 256 -c dt-v3.0.0-checksums.txt --ignore-missing
 ```
 
-You should see output like:
-```
-DevOS Dev-Tools version v2.17.0
-```
+## Post-Installation
 
-## Next Steps
+After installation, verify dt is working:
 
-Check available commands:
 ```bash
-devos --help
+dt --help
 ```
 
 Check for updates:
 ```bash
-devos version --check
+dt version --check
 ```
-
-See [UPDATE.md](UPDATE.md) for update instructions.
 
 ## Troubleshooting
 
-**Binary not found after installation:**
-- Ensure the installation directory is in your PATH
-- For `~/.local/bin`, add to your shell profile: `export PATH="$PATH:$HOME/.local/bin"`
-
-**Permission denied:**
-
-Make sure the binary is executable:
+### "Permission denied"
 ```bash
-chmod +x /path/to/devos
+chmod +x /path/to/dt
 ```
 
-Or use sudo for system-wide installation:
+### "command not found"
+Ensure the binary is in your PATH:
 ```bash
-sudo mv devos /usr/local/bin/
+sudo mv dt /usr/local/bin/
 ```
 
-**macOS security warning:**
-
-Bypass Gatekeeper using the command line:
+### macOS Gatekeeper Warning
+If macOS blocks the binary, run:
 ```bash
-xattr -d com.apple.quarantine /usr/local/bin/devos
+xattr -d com.apple.quarantine /usr/local/bin/dt
 ```
-
-Or right-click the binary in Finder and select "Open" the first time.

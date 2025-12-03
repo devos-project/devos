@@ -1,110 +1,70 @@
-# Updating DevOS
-
-DevOS makes it easy to stay up to date with the latest features and fixes.
+# Updating dt
 
 ## Check for Updates
 
-To check if a new version is available:
+Run the built-in update check:
 
 ```bash
-devos version --check
+dt version --check
 ```
 
-You'll see output like:
+This compares your installed version against the latest release.
+
+Example output:
 ```
 🔍 Checking for updates...
 
-📦 Current version: v2.17.0
-📦 Latest version:  v2.18.0
+📦 Current version: v3.0.0
+📦 Latest version:  v3.1.0
 
 ✨ Update available!
 
 To update, run:
-  curl -fsSL https://raw.githubusercontent.com/devos-project/devos/latest/install.sh | sh
+  curl -fsSL https://raw.githubusercontent.com/devos-project/dt/latest/install.sh | sh
 
-Or download from: https://github.com/devos-project/devos/releases/tag/v2.18.0
+Or download from: https://github.com/devos-project/dt/releases/tag/v3.1.0
 ```
 
-## Update Using Install Script
+## Update Methods
 
-The easiest way to update is to re-run the install script:
+### Automatic Update (Recommended)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/devos-project/devos/latest/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/devos-project/dt/latest/install.sh | sh
 ```
 
-The script will:
-- Download the latest version
-- Replace your existing installation
-- Preserve your configuration and data
+This downloads and installs the latest version automatically.
 
-## Manual Update
+### Manual Update
 
-**1. Download the latest binary** from [GitHub Releases](https://github.com/devos-project/devos/releases/latest)
+**1. Download the latest binary** from [GitHub Releases](https://github.com/devos-project/dt/releases/latest)
 
-**2. Find your current installation:**
+**2. Find your current installation**
 ```bash
-which devos
+which dt
 ```
 
-**3. Replace the binary** (example for /usr/local/bin):
+**3. Replace the binary**
 ```bash
-sudo mv devos-linux-amd64 /usr/local/bin/devos
+sudo mv dt-linux-amd64 /usr/local/bin/dt
 ```
 
-**4. Make it executable:**
+**4. Make executable**
 ```bash
-chmod +x /usr/local/bin/devos
+chmod +x /usr/local/bin/dt
 ```
 
-**5. Verify the update:**
+**5. Verify**
 ```bash
-devos version
+dt version
 ```
 
 ## What Gets Updated
 
-- **Binary only**: The devos executable is replaced
-- **Preserved**: Your project files, configuration, tasks, and data remain unchanged
-- **Backward compatible**: New versions maintain compatibility with existing projects
+- **Binary only**: The dt executable is replaced
+- **No configuration changes**: Your settings are preserved
+- **No data loss**: Task files and team configurations remain intact
 
 ## Release Notes
 
-View what's new in each release:
-- [CHANGELOG](https://github.com/devos-project/devos/blob/main/CHANGELOG.md)
-- [Release Notes](https://github.com/devos-project/devos/releases)
-
-## Version History
-
-To see your current version and installed prompt templates:
-
-```bash
-devos version
-```
-
-Output:
-```
-DevOS Dev-Tools version v2.17.0
-
-📋 Prompt Templates:
-  • worker-guidance           v4.1.1    (updated: 2025-11-26)
-  • pr-review-guidance        v3.0.2    (updated: 2025-11-26)
-  ...
-
-Run 'devos explain prompt-versioning' for versioning guidelines.
-```
-
-## Rollback to Previous Version
-
-If you need to rollback to a previous version:
-
-1. Visit [Releases](https://github.com/devos-project/devos/releases)
-2. Download the version you want
-3. Follow the manual installation steps above
-
-## Automatic Updates
-
-DevOS does not update automatically. You control when to update by:
-- Running `devos version --check` regularly
-- Re-running the install script when ready
-- Subscribing to [releases on GitHub](https://github.com/devos-project/devos/releases) for notifications
+See [CHANGELOG](https://github.com/devos-project/dt/blob/main/CHANGELOG.md) for detailed release notes.

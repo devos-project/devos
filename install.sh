@@ -1,6 +1,6 @@
 #!/bin/sh
-# DevOS Installation Script
-# https://github.com/devos-project/devos
+# dt (DevOS Dev-Tools) Installation Script
+# https://github.com/devos-project/dt
 
 set -e
 
@@ -12,7 +12,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # GitHub repository
-GITHUB_REPO="devos-project/devos"
+GITHUB_REPO="devos-project/dt"
 GITHUB_API="https://api.github.com/repos/${GITHUB_REPO}/releases/latest"
 
 # Detect OS
@@ -23,7 +23,7 @@ detect_os() {
         darwin*) OS="darwin" ;;
         *)
             printf "${RED}Error: Unsupported operating system: $OS${NC}\n" >&2
-            printf "DevOS currently supports Linux and macOS.\n" >&2
+            printf "dt currently supports Linux and macOS.\n" >&2
             exit 1
             ;;
     esac
@@ -39,7 +39,7 @@ detect_arch() {
         arm64)   ARCH="arm64" ;;
         *)
             printf "${RED}Error: Unsupported architecture: $ARCH${NC}\n" >&2
-            printf "DevOS currently supports amd64 and arm64.\n" >&2
+            printf "dt currently supports amd64 and arm64.\n" >&2
             exit 1
             ;;
     esac
@@ -86,7 +86,7 @@ fetch_latest_release() {
     fi
 
     # Construct binary name and download URL
-    BINARY_NAME="devos-${OS}-${ARCH}"
+    BINARY_NAME="dt-${OS}-${ARCH}"
     DOWNLOAD_URL="https://github.com/${GITHUB_REPO}/releases/download/${TAG_NAME}/${BINARY_NAME}"
 
     printf "${GREEN}Latest version: ${TAG_NAME}${NC}\n"
@@ -96,7 +96,7 @@ fetch_latest_release() {
 download_checksums() {
     printf "${BLUE}Downloading checksums...${NC}\n"
 
-    CHECKSUMS_FILE="devos-${TAG_NAME}-checksums.txt"
+    CHECKSUMS_FILE="dt-${TAG_NAME}-checksums.txt"
     CHECKSUMS_URL="https://github.com/${GITHUB_REPO}/releases/download/${TAG_NAME}/${CHECKSUMS_FILE}"
     TMP_CHECKSUMS=$(mktemp)
 
@@ -158,7 +158,7 @@ verify_checksum() {
 
 # Download binary
 download_binary() {
-    printf "${BLUE}Downloading devos for ${OS}-${ARCH}...${NC}\n"
+    printf "${BLUE}Downloading dt for ${OS}-${ARCH}...${NC}\n"
 
     TMP_FILE=$(mktemp)
 
@@ -175,10 +175,10 @@ download_binary() {
 
 # Install binary
 install_binary() {
-    printf "${BLUE}Installing to ${INSTALL_DIR}/devos...${NC}\n"
+    printf "${BLUE}Installing to ${INSTALL_DIR}/dt...${NC}\n"
 
     # Move binary to install location
-    if ! mv "$TMP_FILE" "${INSTALL_DIR}/devos"; then
+    if ! mv "$TMP_FILE" "${INSTALL_DIR}/dt"; then
         rm -f "$TMP_FILE"
         printf "${RED}Error: Failed to install binary${NC}\n" >&2
         printf "You may need to run with sudo or choose a different install location.\n" >&2
@@ -188,20 +188,20 @@ install_binary() {
 
 # Verify installation
 verify_installation() {
-    if command -v devos >/dev/null 2>&1; then
-        VERSION=$(devos version 2>/dev/null | head -n1 | awk '{print $NF}')
-        printf "${GREEN}✓ devos ${VERSION} installed successfully!${NC}\n\n"
-        printf "Run 'devos --help' to get started.\n"
+    if command -v dt >/dev/null 2>&1; then
+        VERSION=$(dt version 2>/dev/null | head -n1 | awk '{print $NF}')
+        printf "${GREEN}✓ dt ${VERSION} installed successfully!${NC}\n\n"
+        printf "Run 'dt --help' to get started.\n"
     else
-        printf "${YELLOW}Warning: devos was installed but is not in your PATH${NC}\n"
-        printf "Add ${INSTALL_DIR} to your PATH or run: ${INSTALL_DIR}/devos\n"
+        printf "${YELLOW}Warning: dt was installed but is not in your PATH${NC}\n"
+        printf "Add ${INSTALL_DIR} to your PATH or run: ${INSTALL_DIR}/dt\n"
     fi
 }
 
 # Main installation flow
 main() {
     printf "${BLUE}╔════════════════════════════════════════╗${NC}\n"
-    printf "${BLUE}║   DevOS Installation Script           ║${NC}\n"
+    printf "${BLUE}║   dt (DevOS Dev-Tools) Installation   ║${NC}\n"
     printf "${BLUE}║   by Effective Momentum                ║${NC}\n"
     printf "${BLUE}╚════════════════════════════════════════╝${NC}\n\n"
 
