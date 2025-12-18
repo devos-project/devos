@@ -102,10 +102,10 @@ download_checksums() {
 
     if ! curl -fsSL -o "$TMP_CHECKSUMS" "$CHECKSUMS_URL"; then
         rm -f "$TMP_CHECKSUMS"
-        printf "${YELLOW}Warning: Could not download checksums file${NC}\n"
-        printf "Skipping checksum verification.\n"
-        SKIP_CHECKSUM=1
-        return 0
+        printf "${RED}Error: Could not download checksums file${NC}\n" >&2
+        printf "Checksum verification is required for security.\n" >&2
+        printf "Please check your internet connection and try again.\n" >&2
+        exit 1
     fi
 
     CHECKSUMS_PATH="$TMP_CHECKSUMS"
@@ -113,21 +113,17 @@ download_checksums() {
 
 # Verify binary checksum
 verify_checksum() {
-    if [ "$SKIP_CHECKSUM" = "1" ]; then
-        printf "${YELLOW}⚠ Checksum verification skipped${NC}\n"
-        return 0
-    fi
-
     printf "${BLUE}Verifying checksum...${NC}\n"
 
     # Extract expected checksum for our binary
     EXPECTED_CHECKSUM=$(grep "$BINARY_NAME" "$CHECKSUMS_PATH" | awk '{print $1}')
 
     if [ -z "$EXPECTED_CHECKSUM" ]; then
-        printf "${YELLOW}Warning: Could not find checksum for ${BINARY_NAME}${NC}\n"
-        printf "Skipping checksum verification.\n"
-        rm -f "$CHECKSUMS_PATH"
-        return 0
+        printf "${RED}Error: Could not find checksum for ${BINARY_NAME}${NC}\n" >&2
+        printf "The checksums file does not contain an entry for your platform.\n" >&2
+        printf "Platform: ${OS}-${ARCH}\n" >&2
+        rm -f "$CHECKSUMS_PATH" "$TMP_FILE"
+        exit 1
     fi
 
     # Calculate actual checksum
@@ -136,10 +132,11 @@ verify_checksum() {
     elif command -v shasum >/dev/null 2>&1; then
         ACTUAL_CHECKSUM=$(shasum -a 256 "$TMP_FILE" | awk '{print $1}')
     else
-        printf "${YELLOW}Warning: Neither sha256sum nor shasum found${NC}\n"
-        printf "Skipping checksum verification.\n"
-        rm -f "$CHECKSUMS_PATH"
-        return 0
+        printf "${RED}Error: Neither sha256sum nor shasum found${NC}\n" >&2
+        printf "Checksum verification requires sha256sum (Linux) or shasum (macOS).\n" >&2
+        printf "Please install the required tools and try again.\n" >&2
+        rm -f "$CHECKSUMS_PATH" "$TMP_FILE"
+        exit 1
     fi
 
     # Compare checksums
